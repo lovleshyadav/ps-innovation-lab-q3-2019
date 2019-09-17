@@ -18,12 +18,23 @@ connection.query('SELECT * FROM publisher_config where publisher_id = 1217239 OR
 	});
 });
 
+// Explore More view
+router.get('/explore', function(req, res, next){    
+	// render to views/user/add.ejs
+	res.render('box/explore', {
+		title: 'Create new widgets for explore more',
+		name: '',
+		email: ''        
+	})
+})
+
 // try SSH query
-router.get('/add', function(req, res, next){    
+router.post('/addExplore', function(req, res, next){    
 	var conn = new Client();
+	var command = 'client-properties-new copy innovationlabindiateam default thumbs-feed-01-x to ' + req.body.name + ' default thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default thumbs-feed-01-z to ' + req.body.name + ' default thumbs-feed-01-z | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-x to ' + req.body.name + ' default organic-thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-z to ' + req.body.name + ' default organic-thumbs-feed-01-z | client-properties-new import';
 	conn.on('ready', function() {
   		console.log('Client :: ready');
-  		conn.exec('pwd', function(err, stream) {
+  		conn.exec(command, function(err, stream) {
 	    	if (err) throw err;
 	   		stream.on('close', function(code, signal) {
 	      	console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
