@@ -10,9 +10,9 @@ router.get('/', function(req, res, next) {
 connection.query('SELECT * FROM publisher_config where publisher_id = 1217239 ORDER BY id desc', function(err,rows) {
 		if(err){
 			req.flash('error', err); 
-			res.render('customers',{page_title:"Customers - Node.js",data:''});   
+			res.render('box',{page_title:"Box - Node.js",data:''});   
 		} else {	
-			res.render('customers',{page_title:"Customers - Node.js",data:rows});
+			res.render('box',{page_title:"Box - Node.js",data:rows});
 		}
 	});
 });
