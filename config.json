@@ -1,0 +1,26 @@
+{
+	"localDB": {
+		"host" : "localhost",
+		"user" : "root",
+		"password" : "Taboola#123",
+		"database" : "express_boiler"
+	},
+	"readDB": {
+		"host" : "proxysql-office.service.consul.taboolasyndication.com",
+		"port" : "6033",
+		"user" : "readonly",
+		"password" : "gush0parva",
+		"database" : "trc"
+	},
+	"cpServer": {
+		"config_id" : "testing",
+		"database" : "my-app-db-test"
+	},
+	"writeDB": {
+		"host" : "proxysql-office.service.consul.taboolasyndication.com",
+		"port" : "6033",
+		"user" : "updater",
+		"password" : "ubsrwgpcgr",
+		"database" : "trc"
+	}
+}
