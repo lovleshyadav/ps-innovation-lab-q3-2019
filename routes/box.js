@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var connection  = require('../lib/db');
 var Client = require('ssh2').Client;
+var config = require('../config.json');
  
  
 /* GET home page. */
@@ -34,9 +35,9 @@ router.get('/add', function(req, res, next){
 	    	});
   		});
 	}).connect({
-	  host: 'impl-cp002.taboolasyndication.com',
-	  username: 'lovlesh.y',
-	  privateKey: require('fs').readFileSync('/Users/lovlesh.y/.ssh/id_rsa')
+	  host: config.implServer.host,
+	  username: config.implServer.username,
+	  privateKey: require('fs').readFileSync(config.implServer.privateKey)
 	});
 })
 
