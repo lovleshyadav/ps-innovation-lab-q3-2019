@@ -15,12 +15,12 @@
 	"implServer": {
 		"host" : "impl-cp002.taboolasyndication.com",
 		"username" : "lovlesh.y",
-		"privateKey" : "/Users/lovlesh.y/.ssh/id_rsa",
+		"privateKey" : "/Users/lovlesh.y/.ssh/id_rsa"
 	},
 	"cpServer": {
 		"host" : "cp002.taboolasyndication.com",
 		"username" : "lovlesh.y",
-		"privateKey" : "/Users/lovlesh.y/.ssh/id_rsa",
+		"privateKey" : "/Users/lovlesh.y/.ssh/id_rsa"
 	},
 	"writeDB": {
 		"host" : "proxysql-office.service.consul.taboolasyndication.com",
