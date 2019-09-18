@@ -29,40 +29,46 @@ router.get('/explore', function(req, res, next){
 })
 
 // try SSH query
-router.post('/addExplore', function(req, res, next){    
+router.post('/explore', async function(req, res, next){    
 	var conn = new Client();
+	var existFlag = [];
 
-	var validate = 'Select name from publishers WHERE name = "'+ req.body.name +'"';
-	connection.query(validate, function(err,rows) {
+	var validate = "Select name from publishers WHERE name = '"+ req.body.name +"'";
+	await connection.query(validate, function(err,rows) {
 		if(err){
 			req.flash('error', err); 
-			res.render('box/explore', {title: 'Create new widgets for explore more', data:''}); 
+			return res.render('box/explore', {title: 'One click explore more', data:''}); 
 		}
-	});
 
+		if (!rows.length) {
+			req.flash('error', "Publisher doesnot exist"); 
+			return res.render('box/explore', {title: 'One click explore more', data:''});
+		}
 
-	var command = 'client-properties-new copy innovationlabindiateam default thumbs-feed-01-x to ' + req.body.name + ' default thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default thumbs-feed-01-z to ' + req.body.name + ' default thumbs-feed-01-z | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-x to ' + req.body.name + ' default organic-thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-z to ' + req.body.name + ' default organic-thumbs-feed-01-z | client-properties-new import | client-properties-new purge ' + req.body.name;
-	conn.on('ready', function() {
-  		console.log('Client :: ready working on the server');
-  		
-  		conn.exec(command, function(err, stream) {
-	    	if (err) throw err;
-	   		stream.on('close', function(code, signal) {
-	      	console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
-	      		conn.end();
-	    	}).on('data', function(data) {
-	      		console.log('STDOUT: ' + data);
-	    	}).stderr.on('data', function(data) {
-	      		console.log('STDERR: ' + data);
-	    	});
-  		});
-	}).connect({
-	  host: config.cpServer.host,
-	  username: config.cpServer.username,
-	  privateKey: require('fs').readFileSync(config.cpServer.privateKey)
-	});
+		var command = 'client-properties-new copy innovationlabindiateam default thumbs-feed-01-x to ' + req.body.name + ' default thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default thumbs-feed-01-z to ' + req.body.name + ' default thumbs-feed-01-z | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-x to ' + req.body.name + ' default organic-thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-z to ' + req.body.name + ' default organic-thumbs-feed-01-z | client-properties-new import | client-properties-new purge ' + req.body.name;
+		conn.on('ready', function() {
+	  		console.log('Client :: ready working on the server');
+	  		
+	  		conn.exec(command, function(err, stream) {
+		    	if (err) throw err;
+		   		stream.on('close', function(code, signal) {
+		      	console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+		      		conn.end();
+		    	}).on('data', function(data) {
+		      		console.log('STDOUT: ' + data);
+		    	}).stderr.on('data', function(data) {
+		      		console.log('STDERR: ' + data);
+		    	});
+	  		});
 
-	res.render('box/explore', {title: 'Create new widgets for explore more', data:''}); 
+	  		req.flash('success', "Hola Amigo!!!"); 
+			res.render('box/explore', {title: 'Create new widgets for explore more', data:''});
+		}).connect({
+		  host: config.cpServer.host,
+		  username: config.cpServer.username,
+		  privateKey: require('fs').readFileSync(config.cpServer.privateKey)
+		});
+	}); 
 })
 
 //and attribute = "image-url-prefix";
