@@ -31,9 +31,20 @@ router.get('/explore', function(req, res, next){
 // try SSH query
 router.post('/addExplore', function(req, res, next){    
 	var conn = new Client();
-	var command = 'client-properties-new copy innovationlabindiateam default thumbs-feed-01-x to ' + req.body.name + ' default thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default thumbs-feed-01-z to ' + req.body.name + ' default thumbs-feed-01-z | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-x to ' + req.body.name + ' default organic-thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-z to ' + req.body.name + ' default organic-thumbs-feed-01-z | client-properties-new import';
+
+	var validate = 'Select name from publishers WHERE name = "'+ req.body.name +'"';
+	connection.query(validate, function(err,rows) {
+		if(err){
+			req.flash('error', err); 
+			res.render('box/explore', {title: 'Create new widgets for explore more', data:''}); 
+		}
+	});
+
+
+	var command = 'client-properties-new copy innovationlabindiateam default thumbs-feed-01-x to ' + req.body.name + ' default thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default thumbs-feed-01-z to ' + req.body.name + ' default thumbs-feed-01-z | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-x to ' + req.body.name + ' default organic-thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-z to ' + req.body.name + ' default organic-thumbs-feed-01-z | client-properties-new import | client-properties-new purge ' + req.body.name;
 	conn.on('ready', function() {
-  		console.log('Client :: ready');
+  		console.log('Client :: ready working on the server');
+  		
   		conn.exec(command, function(err, stream) {
 	    	if (err) throw err;
 	   		stream.on('close', function(code, signal) {
@@ -46,10 +57,12 @@ router.post('/addExplore', function(req, res, next){
 	    	});
   		});
 	}).connect({
-	  host: config.implServer.host,
-	  username: config.implServer.username,
-	  privateKey: require('fs').readFileSync(config.implServer.privateKey)
+	  host: config.cpServer.host,
+	  username: config.cpServer.username,
+	  privateKey: require('fs').readFileSync(config.cpServer.privateKey)
 	});
+
+	res.render('box/explore', {title: 'Create new widgets for explore more', data:''}); 
 })
 
 //and attribute = "image-url-prefix";
