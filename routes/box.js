@@ -8,7 +8,7 @@ var config = require('../config.json');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	  
-connection.query('SELECT * FROM publisher_config where publisher_id = 1217239 ORDER BY id desc', function(err,rows) {
+connection.query('SELECT * FROM trc.publisher_config where publisher_id = 1217239 ORDER BY id desc', function(err,rows) {
 		if(err){
 			req.flash('error', err); 
 			res.render('box',{page_title:"Box - Node.js",data:''});   
@@ -26,6 +26,43 @@ router.get('/explore', function(req, res, next){
 		name: '',
 		email: ''        
 	})
+})
+
+// Explore More view
+router.get('/lookup', function(req, res, next){    
+	// render to views/user/add.ejs
+	res.render('box/mainpage', {
+		title: 'Publisher Lookup',
+		data: []       
+	})
+})
+
+
+router.post('/lookup', async function(req, res, next){   
+	var pubLookup = "select (select id from trc.publishers where id = "+req.body.name+") as id,"+" (select name from trc.publishers where id = "+req.body.name+") as name,"+" (select country from trc.publishers where id = "+req.body.name+") as country,"+" (select currency from trc.publishers where id = "+req.body.name+") as currency,"+" (select url from trc.publishers where id = "+req.body.name+") as url,"+" (select value from trc.publisher_config where publisher_id = "+req.body.name+" and attribute like '%is_visible%') as is_visible,"+" (select count(*) from trc.videos where publisher_id = "+req.body.name+" and is_recommendable = 1 and is_manual_recommendable = 1 and has_expired = 0 and was_removed = 0 )as reccoomendable_items,"+" (select count(*) from apps_config.pc_users where publisher_id = "+req.body.name+") as user,"+" (select max(last_disconnected_date) from trc.sp_affiliations_connectivity where affiliate_id = "+req.body.name+" and last_disconnected_date is not null) as last_db_disconnect_date,"+" (select case when (select count(*) from trc.publisher_config where publisher_id= "+req.body.name+" and attribute like '%organic-recommendations-matrix%') > 0 then 'Generated' else 'Not Generated' end as is_publisher_hybrid ) as is_publisher_hybrid,"+" (select case when (select ((select count(*) from trc.publisher_content_lookback where publisher_id = "+req.body.name+" and max_age is not null) + (select count(*) from trc.publisher_placement_lookback where publisher_id = "+req.body.name+"))) > 0 Then 'Lookback present' else 'No Lookback Configured' end) as lookback, (select count(*) from trc.videos where publisher_id = "+req.body.name+" and id not in (select id from trc.videos where publisher_id = "+req.body.name+" and is_recommendable = 1 and is_manual_recommendable = 1 and has_expired = 0 and was_removed = 0)) as non_recommendable, (select count(*) from trc_client.modes where version_id in (select version_id from trc_client.versions where publisher_id = "+req.body.name+") and mode_name like '%abp%') as number_of_abp_widgets, (select count(*) from trc_client.modes where version_id in (select version_id from trc_client.versions where publisher_id = "+req.body.name+" and mode_name <> 'rbox-blended')) as number_of_widgets, (select tier from analysts.publishers_in_tiers_dynamic where publisher_id = "+req.body.name+") as tier";
+
+	// var command = 'SELECT id from publishers where id = "' +req.body.name+'"';
+	await connection.query(pubLookup, function(err,rows) {
+		if(err){
+			req.flash('error', err); 
+			res.render('box/mainpage',{data: ''});   
+		} 
+
+		req.flash('sucess', "Please see the data below");
+		res.render('box/mainpage',{data: rows}); 
+
+
+	});
+
+
+// 	connection.query(command2, function(err,rows) {
+// 		if(err){
+// 			req.flash('error', err); 
+// 			res.render('box/mainpage',{data: ''});   
+// 		} else {	
+// 			allPubData.query2 = rows;
+// 		}
+// 	});
 })
 
 // try SSH query

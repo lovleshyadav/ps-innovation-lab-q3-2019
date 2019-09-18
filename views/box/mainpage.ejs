@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Publisher Lookup</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<form action="/box/lookup" method="post" name="form1">
+<div class="text-center">
+	<label for="name">Publisher Name</label>
+	<input type="text" class="form-control" name="name" id="name" value="" placeholder="Publisher Name">
+</div>
+
+
+
+ <div class="text-center">
+ 	<button class="btn btn-primary" type="submit">
+   <span class="spinner-border spinner-border-sm"></span>
+   Loading..
+ </button>
+ <button type="button" class="btn btn-success">Success</button>
+<!-- <input type="submit" class="btn btn-primary" value="Add">
+ --></div>
+</form>   
+
+<div class="container">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Attribute Name</th>
+				<th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if(data.length) { %>  
+				<tr class="success">
+					<td>Publisher Id</td>
+					<td><%= data[0].id %></td>
+				</tr>
+				<tr class="danger">
+					<td>Publisher Name</td>
+					<td><%= data[0].name %></td>
+				</tr>
+				<tr class="info">
+					<td>Country</td>
+					<td><%= data[0].country %></td>
+				</tr>
+				<tr class="active">
+					<td>Currency</td>
+					<td><%= data[0].currency %></td>
+				</tr>
+				<tr class="warning">
+					<td>URL</td>
+					<td><%= data[0].url %></td>
+				</tr>
+				<tr class="active">
+					<td>Visiblity</td>
+					<td><%= data[0].is_visible %></td>
+				</tr>
+				<tr class="success">
+					<td>Recommandable Items</td>
+					<td><%= data[0].reccoomendable_items %></td>
+				</tr>
+				<tr class="success">
+					<td>Non Recommandable Items</td>
+					<td><%= data[0].non_recommendable %></td>
+				</tr>
+				<tr class="success">
+					<td>Lookback</td>
+					<td><%= data[0].lookback %></td>
+				</tr>
+				<tr class="info">
+					<td>Users</td>
+					<td><%= data[0].user %></td>
+				</tr>
+				<tr class="warning">
+					<td>Last Sponsered Connectivity</td>
+					<td><%= data[0].last_db_disconnect_date %></td>
+				</tr>
+				<tr class="active">
+					<td>Publisher Matrix Created</td>
+					<td><%= data[0].is_publisher_hybrid %></td>
+				</tr>
+				<tr class="active">
+					<td>ABP Widgets</td>
+					<td><%= data[0].number_of_abp_widgets %></td>
+				</tr>
+				<tr class="active">
+					<td>Number Widgets</td>
+					<td><%= data[0].number_of_widgets %></td>
+				</tr>
+				<tr class="active">
+					<td>Publisher Matrix Created</td>
+					<td><%= data[0].is_publisher_hybrid %></td>
+				</tr>
+				<tr class="active">
+					<td>Publisher Tier</td>
+					<td><%= data[0].tier %></td>
+				</tr>
+			<% } %>
+		</tbody>
+	</table>
+</div>
+
+</body>
+</html>
+
