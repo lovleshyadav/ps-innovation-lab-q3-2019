@@ -28,7 +28,17 @@ router.get('/explore', function(req, res, next){
 	})
 })
 
-// Explore More view
+// DFP and Infinite code template
+router.get('/code-template', function(req, res, next){    
+	// render to views/user/add.ejs
+	res.render('box/code-template', {
+		title: 'Create new widgets for explore more',
+		name: '',
+		email: ''        
+	})
+})
+
+// Publisher look up view
 router.get('/lookup', function(req, res, next){    
 	// render to views/user/add.ejs
 	res.render('box/mainpage', {

@@ -1,13 +1,100 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Dashboard</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-	</body>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Main Page</title>
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* Style the sidebar - fixed full height */
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #dddddd;
+            opacity: .1;
+            overflow-x: hidden;
+            padding-top: 70px;
+            color: #054164;
+        }
+
+        .navbar {
+        	width: 100%;
+    		z-index: 1000;
+		    background-color: #fff;
+		    box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+		    height: 60px;
+        }
+
+        /* Style sidebar links */
+        .sidebar a {
+            padding: 12px;
+            text-decoration: none;
+            font-size: 14px;
+            color: #054164;
+            display: block;
+        }
+        /* Style links on mouse-over */
+        .sidebar a:hover{
+            background-color: black;
+            color: white;
+        }
+        .sidebar a:active
+        {
+            background-color: black;
+            color: white
+        }
+
+        .card-deck
+        {
+            margin-top: 100px;
+            margin-left: 200px;
+            margin-right: 50px;
+            font-family: "Roboto";
+        }
+    </style>
+</head>
+<body>
+<div class="navbar navbar-dark">
+	<div class="left">
+		<div class="header-img" style="height: 50px; width: 200px; position: absolute; right: 0; top: 10px">
+			<svg class="top-nav-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 200" style="fill: #134c88;" ><path d="M11.65,10.56H3.23V2.87h26.1v7.69H20.89V33.09H11.66Zm0-.05"></path><path d="M37,23.22a14.22,14.22,0,0,1-3.29,1c-1.86.41-2.83.87-2.84,2.34a2.4,2.4,0,0,0,2.6,2A3.32,3.32,0,0,0,37,25.24Zm8,5a8.84,8.84,0,0,0,1,4.9L37.46,33A5.79,5.79,0,0,1,37.18,31h-.09c-1.78,2-4.36,2.59-7.06,2.57-4.22,0-7.7-2.07-7.68-6.66,0-6.92,8.14-6.62,12.4-7.39C35.9,19.29,37,19,37,17.57s-1.38-2-2.73-2c-2.57,0-3.09,1.29-3.13,2.22l-7.76,0c.29-6.15,6.11-7.13,11.3-7.1C45.18,10.66,45.07,15,45,19.22Zm0,0"></path><path d="M58.81,16.81c-3,0-3.68,2.8-3.7,5.37s.64,5.45,3.64,5.46,3.69-2.8,3.7-5.42-.64-5.4-3.64-5.42m-11.64-14h8.35l-.06,10.84h.08a7.15,7.15,0,0,1,6-2.92c7.33,0,9.28,6.29,9.25,11.44,0,5.48-3.06,11.58-9.26,11.54-4.09,0-5.35-1.59-6.39-3h-.08l0,2.35H47.17Zm0,.17"></path><path d="M82.51,8.95c-3.16,0-3.6,3.06-3.62,5.37s.39,5.44,3.55,5.46,3.6-3.1,3.62-5.42S85.67,9,82.51,8.95m-.1,16.91c-8.22,0-11.9-5.51-11.87-11.58s3.78-11.45,12-11.4,11.9,5.46,11.87,11.54-3.78,11.49-12,11.44"></path><path d="M103.22,8.95c-3.16,0-3.6,3.06-3.61,5.38s.39,5.44,3.55,5.46,3.6-3.1,3.61-5.42-.39-5.4-3.55-5.42m-.1,16.91c-8.22,0-11.9-5.51-11.86-11.58s3.78-11.45,12-11.4,11.9,5.47,11.87,11.54-3.78,11.49-12,11.44"></path><path d="M116,2.88h8.17V33.09H116Zm0,0"></path><path d="M139.41,23.15a14.33,14.33,0,0,1-3.29,1c-1.86.41-2.83.87-2.84,2.35a2.4,2.4,0,0,0,2.6,2,3.31,3.31,0,0,0,3.52-3.4Zm8,5c0,1.64-.1,3.57.82,5h-8.39a6.55,6.55,0,0,1-.3-2.19h-.09c-1.78,2-4.36,2.59-7.05,2.57-4.22,0-7.71-2.07-7.68-6.67,0-6.92,8.13-6.61,12.4-7.39,1.14-.21,2.28-.54,2.29-1.93s-1.38-2-2.73-2c-2.57,0-3.09,1.29-3.13,2.22l-7.76,0c.29-6.16,6.11-7.14,11.3-7.1,10.46.06,10.35,4.4,10.32,8.62Zm0,0"></path><path d="M73.67,25.86a45.69,45.69,0,0,0,18.78,3.86c7,0,12.38-1.29,19.14-3.86l0,7.29a42.69,42.69,0,0,1-19.15,4.58c-7.12,0-12.26-1.51-18.78-4.58Zm0,0"></path></svg>
+		</div>
+	</div>
+</div>
+<!-- Side navigation -->
+<div class="sidebar">
+    <a href="test.html"><i class="fa fa-fw fa-home"></i>Home</a>
+    <a href="click_for_explore_more.html"><i class="fa fa-fw fa-user"></i>One Click Explore More</a>
+    <a href="DFP_Infine_Scroll.html"><i class="fa fa-fw fa-user"></i>DFP and Infinite Scroll</a>
+    <a href="publisher_lookup.html"><i class="fa fa-fw fa-user"></i>Publisher Lookup</a>
+</div>
+<div class="card-deck" align="center" style="height: 200px" style="width: 60px">
+    <div class="card">
+        <img class="card-img-top" src="bg.gif">
+        <div class="card-body">
+            <h2 class="card-title"><a href = "click_for_explore_more.html" target="_blank">ONE CLICK EXPLORE MORE</a></h2>
+        </div>
+    </div>
+    <div class="card">
+        <img class="card-img-top" src="bg2.gif">
+        <div class="card-body">
+            <h2 class="card-title"><a href = "DFP_Infine_Scroll.html" target="_blank">DFP AND INFINITE SCROLL</a></h2>
+        </div>
+    </div>
+    <div class="card">
+        <img class="card-img-top" src="bg3.gif">
+        <div class="card-body">
+            <h2 class="card-title"><a href = "publisher_lookup.html" target="_blank">PUBLISHER LOOKUP</a></h2>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
 </html>
