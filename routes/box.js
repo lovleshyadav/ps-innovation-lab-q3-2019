@@ -23,8 +23,7 @@ router.get('/explore', function(req, res, next){
 	// render to views/user/add.ejs
 	res.render('box/explore', {
 		title: 'Create new widgets for explore more',
-		name: '',
-		email: ''        
+		data: ''       
 	})
 })
 
