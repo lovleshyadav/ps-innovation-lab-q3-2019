@@ -41,9 +41,10 @@ router.get('/code-template', function(req, res, next){
 router.get('/lookup', function(req, res, next){    
 	// render to views/user/add.ejs
 	res.render('box/mainpage', {
-		title: 'Publisher Lookup',
-		data: []       
-	})
+			title: 'Publisher Lookup',
+			data: '',       
+			newLoad: true
+		})
 })
 
 
@@ -54,7 +55,7 @@ router.post('/lookup', async function(req, res, next){
 	await connection.query(pubLookup, function(err,rows) {
 		if(err){
 			req.flash('error', err); 
-			res.render('box/mainpage',{data: ''});   
+			res.render('box/mainpage',{data: '', newLoad: false});   
 		} 
 
 		req.flash('sucess', "Please see the data below");
@@ -77,19 +78,19 @@ router.post('/lookup', async function(req, res, next){
 // try SSH query
 router.post('/explore', async function(req, res, next){    
 	var conn = new Client();
-	var existFlag = [];
+	// var existFlag = [];
 
-	var validate = "Select name from publishers WHERE name = '"+ req.body.name +"'";
-	await connection.query(validate, function(err,rows) {
-		if(err){
-			req.flash('error', err); 
-			return res.render('box/explore', {title: 'One click explore more', data:''}); 
-		}
+	// var validate = "Select name from publishers WHERE name = '"+ req.body.name +"'";
+	// await connection.query(validate, function(err,rows) {
+	// 	if(err){
+	// 		req.flash('error', err); 
+	// 		return res.render('box/explore', {title: 'One click explore more', data:''}); 
+	// 	}
 
-		if (!rows.length) {
-			req.flash('error', "Publisher doesnot exist"); 
-			return res.render('box/explore', {title: 'One click explore more', data:''});
-		}
+	// 	if (!rows.length) {
+	// 		req.flash('error', "Publisher doesnot exist"); 
+	// 		return res.render('box/explore', {title: 'One click explore more', data:''});
+	// 	}
 
 		var command = 'client-properties-new copy innovationlabindiateam default thumbs-feed-01-x to ' + req.body.name + ' default thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default thumbs-feed-01-z to ' + req.body.name + ' default thumbs-feed-01-z | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-x to ' + req.body.name + ' default organic-thumbs-feed-01-x | client-properties-new import | client-properties-new copy innovationlabindiateam default organic-thumbs-feed-01-z to ' + req.body.name + ' default organic-thumbs-feed-01-z | client-properties-new import | client-properties-new purge ' + req.body.name;
 		conn.on('ready', function() {
@@ -107,14 +108,14 @@ router.post('/explore', async function(req, res, next){
 		    	});
 	  		});
 
-	  		req.flash('success', "Hola Amigo!!!"); 
+	  		req.flash('success', "Widgets are being created, they will render within 2-3 min"); 
 			res.render('box/explore', {title: 'Create new widgets for explore more', data:''});
 		}).connect({
 		  host: config.cpServer.host,
 		  username: config.cpServer.username,
 		  privateKey: require('fs').readFileSync(config.cpServer.privateKey)
 		});
-	}); 
+	// }); 
 })
 
 //and attribute = "image-url-prefix";

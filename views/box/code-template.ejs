@@ -1,103 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>DFP and Infine Scroll Page</title>
-    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body {
-            background-color: whitesmoke;
-        }
-        .header {
-            padding-top: 20px;
-            padding-left: 20px;
-            color: white;
-            background-color: darkslategrey;
-            font-family: "Roboto";
-            size: 100px;
-        }
-        /* Style the sidebar - fixed full height */
-        .sidebar {
-            height: 100%;
-            width: 200px;
-            position: fixed;
-            z-index: 1;
-            top: 70px;
-            left: 0;
-            background-color: lightgrey;
-            overflow-x: hidden;
-            padding-top: 40px;
-            font-family: "Roboto";
-        }
-        /* Style sidebar links */
-        .sidebar a {
-            padding: 12px;
-            text-decoration: none;
-            font-size: 14px;
-            color: dimgrey;
-            display: block;
-        }
-        /* Style links on mouse-over */
-        .sidebar a:hover{
-            background-color: black;
-            color: white;
-        }
-        .sidebar a:active
-        {
-            background-color: black;
-            color: white
-        }
-        @media screen and (max-height: 450px) {
-            .sidebar {padding-top: 15px;}
-            .sidebar a {font-size: 18px;}
-        }
-        .container
-        {
-            margin-top: 80px;
-            margin-left: 250px;
-            margin-right: 50px;
-            font-family: "Roboto";
-            color: darkslategrey;
-        }
-        .list-group
-        {
-            margin-left: 300px;
-            margin-right: 300px;
-        }
-        .list-group a:hover {
-            background-color: darkslategrey;
-            color: white;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+	Pandora's Box
+  </title>
+  <!-- Favicon -->
+  <link href="../icon-blue.png" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="../assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+  <link href="../assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="../assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
+  <script src="http://codemirror.net/lib/codemirror.js"></script>
+  <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
+  <script src="http://codemirror.net/addon/edit/continuecomment.js"></script>
+  <script src="http://codemirror.net/mode/javascript/javascript.js"></script>
+  <script type="text/javascript">
+		var editableCodeMirror = "";
+		window.onload = function () {
+			editableCodeMirror = CodeMirror.fromTextArea(document.getElementById('codesnippet_editable'), {
+				mode: "javascript",
+				theme: "default",
+				lineNumbers: true
+			});
+		}; 
+
+		function saveTextAsFile() {
+			var textToWrite = editableCodeMirror.getValue();
+			var textFileAsBlob = new Blob([textToWrite], {
+				type: "text/plain;charset=utf-8"
+			});
+			var fileNameToSaveAs = "infinite-dfp-code-generator.txt";
+
+			var downloadLink = document.createElement("a");
+			downloadLink.download = fileNameToSaveAs;
+			downloadLink.innerHTML = "Download File";
+			if (window.webkitURL != null) {
+			// Chrome allows the link to be clicked
+			// without actually adding it to the DOM.
+			downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+			} else {
+			// Firefox requires the link to be added to the DOM
+			// before it can be clicked.
+			downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+			downloadLink.onclick = destroyClickedElement;
+			downloadLink.style.display = "none";
+			document.body.appendChild(downloadLink);
+			}
+
+			downloadLink.click();
+		}
+  </script>
 </head>
-<body>
-<div class="header"><div class="left"><div class="header-img">
-    <img src = 123.png height="50"></div>
-</div>
-</div>
-<!-- Side navigation -->
-<div class="sidebar">
-    <b>
-        <a href="test.html"><i class="fa fa-fw fa-home"></i>Home</a>
-        <a href="click_for_explore_more.html"><i class="fa fa-fw fa-user"></i>One Click Explore More</a>
-        <a href="DFP_Infine_Scroll.html"><i class="fa fa-fw fa-user"></i>DFP and Infinite Scroll</a>
-        <a href="publisher_lookup.html"><i class="fa fa-fw fa-user"></i>Publisher Lookup</a></b>
-</div>
-<div class="container">
-    <h1><B>DFP and Infinite Scroll</B></h1>
-    <br><br>
-</div>
-<div class="list-group">
-    <h4><a href="https://brain.taboola.com/display/AREU/Infinite+Scroll+Code+Generator" class="list-group-item" target="_blank">Infinite Scroll Code Genertor</h4></a>
-    <br><br>
-    <h4><a href="https://brain.taboola.com/display/AREU/DFP+Code+Generator" class="list-group-item" target="_blank">DFP Code Generator</a></h4>
-</div>
-<footer>
-    <img src="brain.gif" align="right" height="400">
-</footer>
+
+<body class="">
+  <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+	<div class="container-fluid">
+	  <!-- Toggler -->
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	  <!-- Brand -->
+	  <a class="navbar-brand pt-0" href="../">
+		<svg class="top-nav-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 50" style="fill: #134c88;" ><path d="M11.65,10.56H3.23V2.87h26.1v7.69H20.89V33.09H11.66Zm0-.05"></path><path d="M37,23.22a14.22,14.22,0,0,1-3.29,1c-1.86.41-2.83.87-2.84,2.34a2.4,2.4,0,0,0,2.6,2A3.32,3.32,0,0,0,37,25.24Zm8,5a8.84,8.84,0,0,0,1,4.9L37.46,33A5.79,5.79,0,0,1,37.18,31h-.09c-1.78,2-4.36,2.59-7.06,2.57-4.22,0-7.7-2.07-7.68-6.66,0-6.92,8.14-6.62,12.4-7.39C35.9,19.29,37,19,37,17.57s-1.38-2-2.73-2c-2.57,0-3.09,1.29-3.13,2.22l-7.76,0c.29-6.15,6.11-7.13,11.3-7.1C45.18,10.66,45.07,15,45,19.22Zm0,0"></path><path d="M58.81,16.81c-3,0-3.68,2.8-3.7,5.37s.64,5.45,3.64,5.46,3.69-2.8,3.7-5.42-.64-5.4-3.64-5.42m-11.64-14h8.35l-.06,10.84h.08a7.15,7.15,0,0,1,6-2.92c7.33,0,9.28,6.29,9.25,11.44,0,5.48-3.06,11.58-9.26,11.54-4.09,0-5.35-1.59-6.39-3h-.08l0,2.35H47.17Zm0,.17"></path><path d="M82.51,8.95c-3.16,0-3.6,3.06-3.62,5.37s.39,5.44,3.55,5.46,3.6-3.1,3.62-5.42S85.67,9,82.51,8.95m-.1,16.91c-8.22,0-11.9-5.51-11.87-11.58s3.78-11.45,12-11.4,11.9,5.46,11.87,11.54-3.78,11.49-12,11.44"></path><path d="M103.22,8.95c-3.16,0-3.6,3.06-3.61,5.38s.39,5.44,3.55,5.46,3.6-3.1,3.61-5.42-.39-5.4-3.55-5.42m-.1,16.91c-8.22,0-11.9-5.51-11.86-11.58s3.78-11.45,12-11.4,11.9,5.47,11.87,11.54-3.78,11.49-12,11.44"></path><path d="M116,2.88h8.17V33.09H116Zm0,0"></path><path d="M139.41,23.15a14.33,14.33,0,0,1-3.29,1c-1.86.41-2.83.87-2.84,2.35a2.4,2.4,0,0,0,2.6,2,3.31,3.31,0,0,0,3.52-3.4Zm8,5c0,1.64-.1,3.57.82,5h-8.39a6.55,6.55,0,0,1-.3-2.19h-.09c-1.78,2-4.36,2.59-7.05,2.57-4.22,0-7.71-2.07-7.68-6.67,0-6.92,8.13-6.61,12.4-7.39,1.14-.21,2.28-.54,2.29-1.93s-1.38-2-2.73-2c-2.57,0-3.09,1.29-3.13,2.22l-7.76,0c.29-6.16,6.11-7.14,11.3-7.1,10.46.06,10.35,4.4,10.32,8.62Zm0,0"></path><path d="M73.67,25.86a45.69,45.69,0,0,0,18.78,3.86c7,0,12.38-1.29,19.14-3.86l0,7.29a42.69,42.69,0,0,1-19.15,4.58c-7.12,0-12.26-1.51-18.78-4.58Zm0,0"></path></svg>
+	
+	  </a>
+	  <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+		<!-- Navigation -->
+		<ul class="navbar-nav">
+		  <li class="nav-item">
+		  <a class=" nav-link" href="../"> <i class="ni ni-tv-2 text-primary"></i> Dashboard
+			</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link " href="./explore">
+			  <i class="ni ni-planet text-blue"></i> One Click Explore More
+			</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link " href="./lookup">
+			  <i class="ni ni-bullet-list-67 text-red"></i> Publisher Lookup
+			</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link active" href="">
+			  <i class="ni ni-spaceship text-voilet"></i> DFP & Infinite Scroll
+			</a>
+		  </li>
+		</ul>
+		<!-- Divider -->
+		<hr class="my-3">
+	  </div>
+	</div>
+  </nav>
+  <div class="main-content">
+	<!-- Navbar -->
+	<nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+	  <div class="container-fluid">
+		<!-- Brand -->
+		<a class="h1 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">DFP and Infinite Scroll</a>
+	  </div>
+	</nav>
+	<!-- End Navbar -->
+	<!-- Header -->
+	<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+	  <div class="container-fluid">
+		<div class="header-body">
+			<div class="list-group">
+				<h4><a href="https://brain.taboola.com/display/AREU/Infinite+Scroll+Code+Generator" class="list-group-item" target="_blank">Infinite Scroll Code Genertor</h4></a>
+				<br><br>
+				<h4><a href="https://brain.taboola.com/display/AREU/DFP+Code+Generator" class="list-group-item" target="_blank">DFP Code Generator</a></h4>
+			</div>
+			<br/>
+			<br/>
+			<form>
+				<div class="row">
+					<div class="col-xl-12 col-lg-6">
+						<h2>Paste the generated codes here</h2>
+						<textarea id="codesnippet_editable"></textarea>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-xl-12 col-lg-6">
+						<button class="btn btn-icon btn-3 btn-secondary" type="button" onclick='saveTextAsFile()'>
+							<span class="btn-inner--icon"><i class="ni ni-folder-17"></i></span>
+							<span class="btn-inner--text">Save Template</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!--   Core   -->
+  <script src="../assets/js/plugins/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!--   Argon JS   -->
+  <script src="../assets/js/argon-dashboard.min.js?v=1.1.0"></script>
 </body>
+
 </html>
