@@ -72,7 +72,12 @@
 		<div class="container-fluid">
 		<div class="header-body">
 			<% if (messages.error) { %>
-			<p style="color:red"><%- messages.error %></p>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						<span class="alert-inner--text"><strong>Warning: </strong> <%- messages.error %></span>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 			<% } %>
 				
 			<% if (messages.success) { %>
@@ -86,14 +91,6 @@
 			<% } %>
 			<p style="color:green"><%- data%></p>
 			<form action="/box/explore" method="post" name="form1">
-				<% if(data.length && !data[0].id) { %> 
-					<div class="alert alert-warning alert-dismissible fade show" role="alert">
-						<span class="alert-inner--text"><strong>Warning:</strong> Publisher Details Not Found</span>
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-				<% } %>
 				<div class="form-group">
 					<div class="input-group mb-4">
 						<div class="input-group-prepend">
@@ -107,12 +104,25 @@
 					<div class="row">
 						<div class="col-xl-12 col-lg-6">
 							<button class="btn btn-icon btn-3 btn-secondary" type="submit">
-								<span class="btn-inner--text">Search</span>
+								<span class="btn-inner--text">Create Widgets</span>
 							</button>
 						</div>
 					</div>
 				</div>
 			</form>
+			<% if (messages.success) { %>
+				<br/>
+				<a class="h3 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">Widget Tester Links</a>
+				<br/>
+				<br/>
+				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=organic-thumbs-feed-01-x&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Organic Thumbs Feed 01 x</span></a>
+				<br/>
+				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=organic-thumbs-feed-01-z&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Organic Thumbs Feed 01 z</span></a>
+				<br/>
+				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=thumbs-feed-01-x&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Thumbs Feed 01 x</span></a>
+				<br/>
+				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=thumbs-feed-01-z&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Thumbs Feed 01 z</span></a>
+			<% } %>
 		</div>
 		</div>
 	</div>

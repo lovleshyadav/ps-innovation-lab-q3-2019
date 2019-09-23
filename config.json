@@ -6,7 +6,7 @@
 		"database" : "express_boiler"
 	},
 	"readDB": {
-		"host" : "proxysql-office.service.consul.taboolasyndication.com",
+		"host" : "proxysql-office.taboolasyndication.com",
 		"port" : "6033",
 		"user" : "readonly",
 		"password" : "gush0parva",
@@ -23,7 +23,7 @@
 		"privateKey" : "/Users/lovlesh.y/.ssh/id_rsa"
 	},
 	"writeDB": {
-		"host" : "proxysql-office.service.consul.taboolasyndication.com",
+		"host" : "proxysql-office.taboolasyndication.com",
 		"port" : "6033",
 		"user" : "updater",
 		"password" : "ubsrwgpcgr",
