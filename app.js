@@ -4,6 +4,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const PORT = 8998;
+const HOST = '0.0.0.0';
 
 // New dependencies
 var expressValidator = require('express-validator');
@@ -65,5 +67,7 @@ app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error');
 });
+app.listen(PORT, HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
 
 module.exports = app;
