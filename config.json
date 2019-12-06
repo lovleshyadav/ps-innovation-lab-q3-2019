@@ -1,0 +1,32 @@
+{
+	"localDB": {
+		"host" : "localhost",
+		"user" : "root",
+		"password" : "Taboola#123",
+		"database" : "express_boiler"
+	},
+	"readDB": {
+		"host" : "proxysql-office.taboolasyndication.com",
+		"port" : "6033",
+		"user" : "readonly",
+		"password" : "gush0parva",
+		"database" : "trc"
+	},
+	"implServer": {
+		"host" : "impl-cp002.taboolasyndication.com",
+		"username" : "lovlesh.y",
+		"privateKey" : "/Users/lovlesh.y/.ssh/id_rsa"
+	},
+	"cpServer": {
+		"host" : "cp002.taboolasyndication.com",
+		"username" : "lovlesh.y",
+		"privateKey" : "/Users/lovlesh.y/.ssh/id_rsa"
+	},
+	"writeDB": {
+		"host" : "proxysql-office.taboolasyndication.com",
+		"port" : "6033",
+		"user" : "updater",
+		"password" : "ubsrwgpcgr",
+		"database" : "trc"
+	}
+}
