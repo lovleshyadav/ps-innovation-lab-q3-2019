@@ -28,6 +28,16 @@ router.get('/explore', function(req, res, next){
 	})
 })
 
+// Client Properties view
+router.get('/client-property', function(req, res, next){    
+	// render to views/user/add.ejs
+	res.render('box/client-property', {
+		title: 'Edit client properties',
+		data: '',
+		pubName: ''       
+	})
+})
+
 // DFP and Infinite code template
 router.get('/code-template', function(req, res, next){    
 	// render to views/user/add.ejs
@@ -118,6 +128,40 @@ router.post('/explore', async function(req, res, next){
 		  privateKey: require('fs').readFileSync(config.cpServer.privateKey)
 		});
 	}); 
+})
+
+router.post('/client-property', async function(req, res, next){    
+	var conn = new Client();
+
+	var command = 'client-properties-new set  "' + req.body.pubName + '" "default" ' + req.body.widgetName + ' "' + req.body.propertyName + '" "' + req.body.propertyValue + '" | client-properties-new purge "' + req.body.pubName + '"';
+	conn.on('ready', async function() {
+	  	console.log('Connecting to the client properties');
+  		await conn.exec(command, async function(err, stream) {
+  			// console.log("<-------------- command ----------------->");
+  			// console.log(command);
+  			// console.log("<-------------- execution ----------------->");
+
+	    	if (err) throw err;
+	   		
+	   		await stream.on('close', function(code, signal) {
+	      		console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+	      		conn.end();
+	    	}).on('data', function(data) {
+	      		console.log('STDOUT: ' + data);
+	    	}).stderr.on('data', function(data) {
+	      		console.log('STDERR: ' + data);
+	    	});
+
+	    	// console.log("<-------------- Execution is completed, now see the changes in DB ----------------->");
+  		});
+
+  		req.flash('success', "Client property is edited, please refer to the widget tester link to see the changes"); 
+		res.render('box/client-property', {title: 'Create new widgets for explore more', data:'', pubName: req.body.pubName, widgetName: req.body.widgetName});
+	}).connect({
+	  host: config.cpServer.host,
+	  username: config.cpServer.username,
+	  privateKey: require('fs').readFileSync(config.cpServer.privateKey)
+	});
 })
 
 //and attribute = "image-url-prefix";

@@ -68,7 +68,7 @@
 	<nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
 		<div class="container-fluid">
 		<!-- Brand -->
-		<a class="h1 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">One Click Explore More</a>
+		<a class="h1 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">Change client property</a>
 		</div>
 	</nav>
 	<!-- End Navbar -->
@@ -95,13 +95,31 @@
 				</div>
 			<% } %>
 			<p style="color:green"><%- data%></p>
-			<form action="/box/explore" method="post" name="form1">
+			<form action="/box/client-property" method="post" name="form1">
 				<div class="form-group">
 					<div class="input-group mb-4">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
 						</div>
-						<input class="form-control" placeholder="Search Publisher By Name (Eg: taboolatitraining-lovlesh)" name="name" id="name" type="text">
+						<input class="form-control" placeholder="Enter Publisher Name (Eg: taboolatitraining-lovlesh)" name="pubName" id="pubName" type="text">
+					</div>
+					<div class="input-group mb-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+						</div>
+						<input class="form-control" placeholder="Enter Widget Name (Eg: thumbnails-a)" name="widgetName" id="widgetName" type="text">
+					</div>
+					<div class="input-group mb-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+						</div>
+						<input class="form-control" placeholder="Enter property name (Eg: disclosure-position)" name="propertyName" id="propertyName" type="text">
+					</div>
+					<div class="input-group mb-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+						</div>
+						<input class="form-control" placeholder="Enter property value (Eg: top)" name="propertyValue" id="propertyValue" type="text">
 					</div>
 				</div>
 				<div class="text-center">
@@ -109,7 +127,7 @@
 					<div class="row">
 						<div class="col-xl-12 col-lg-6">
 							<button class="btn btn-icon btn-3 btn-secondary" type="submit">
-								<span class="btn-inner--text">Create Widgets</span>
+								<span class="btn-inner--text">Change property</span>
 							</button>
 						</div>
 					</div>
@@ -117,16 +135,10 @@
 			</form>
 			<% if (messages.success) { %>
 				<br/>
-				<a class="h3 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">Widget Tester Links</a>
+				<a class="h3 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">Widget Tester Link</a>
 				<br/>
 				<br/>
-				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=organic-thumbs-feed-01-x&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Organic Thumbs Feed 01 x</span></a>
-				<br/>
-				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=organic-thumbs-feed-01-z&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Organic Thumbs Feed 01 z</span></a>
-				<br/>
-				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=thumbs-feed-01-x&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Thumbs Feed 01 x</span></a>
-				<br/>
-				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=thumbs-feed-01-z&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Thumbs Feed 01 z</span></a>
+				<a target="_blank" class="h4 font-weight-bold text-white mb-0" href="http://web1.taboolasyndication.com:8080/demo?publisher=<%- pubName %>&modeName=<%- widgetName %>&container=test+placement&targetType=&pageType=&width=&taboola_sim_domain="> <span class="h4 font-weight-bold text-white mb-0">Link for the widget</span></a>
 			<% } %>
 		</div>
 		</div>
